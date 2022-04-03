@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<!-- 引入Vue -->
+	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<!-- 引入element-ui样式/组件库 -->
+	<link rel="stylesheet" type="text/css" href="./css/element-ui.css">
+    <link rel="stylesheet" type="text/css" href="./css/video-js.css">
+	<script src="./js/element-ui.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 引入umy-ui样式/组件库 -->
+	<link rel="stylesheet" type="text/css" href="./css/umy-ui.css">
+	<script src="./js/umy-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/video.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 引入自定义CSS -->
+	<link rel="stylesheet" type="text/css" href="./css/my.css" />
+</head>
+<body>
+<!--<div class="note" :style ="note"></div>width="382px" height="682px"  -->
+	<div id="app">
+        <video id="video" ref="my_video" class="video-js vjs-big-play-centered vjs-fluid" controls preload="auto"
+         :poster="logo" data-setup="{}" autoplay>
+        <source src="../1.mp4" type="video/mp4"/>
+        </video>
+	</div>
+
+</body>
+
+<!-- 引入自定义JS，Vue只能在页面底部创建 -->
+<script src="js/my.js" type="text/javascript" charset="utf-8"></script>
+</html>
