@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        logo: '../1.png',
+        logo: '1.png',
         play_url: '',
         playbackRates: [0.5, 1, 1.5, 2],
         play_url2: "",
@@ -91,3 +91,22 @@ window.addEventListener('pywebviewready', function () {
     pywebview.api.load_video().then(() => {
     })
 })
+//监听键盘右键事件，播放下一个视频
+document.oncontextmenu = function (e) {
+    e.preventDefault();
+    pywebview.api.next_one().then((data) => {
+        var data_video = {
+            src: data,
+            type: 'video/mp4'
+        };
+        myPlayer.src(data_video);
+        myPlayer.load(data_video);
+        var playPromise = myPlayer.play().type;
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                myPlayer.play()
+            }).catch(() => {
+            })
+        }
+    })
+};

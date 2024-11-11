@@ -18,8 +18,11 @@ from urllib.parse import urlparse
 # key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
 #                      r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
 # video_path = str(winreg.QueryValueEx(key, "Local AppData")[0]).replace('\\', '/') + '/Temp/'
-
-play_url = ["http://ali-cdn.kwai.net/upic/2016/09/13/23/BMjAxNjA5MTMyMzIxMDVfMTQ0MTUyNDU1XzEwNTk2MTQyNThfMV8z.mp4"]
+play_url = []
+with open('video_urls.txt', 'r', encoding='utf-8') as f:
+    video_urls = f.readlines()
+    for url in video_urls:
+        play_url.append(url.strip())
 
 
 def random_user():
@@ -631,6 +634,7 @@ class API(Task):
         super().__init__(type_search=type_search, limit=limit)
 
     def load_video(self):
+        return
         self.executor = ThreadPoolExecutor(max_workers=4)
         key1 = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
                               r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
@@ -717,14 +721,40 @@ if __name__ == "__main__":
     chinese = {
         'global.quitConfirmation': u'确定要关闭吗?',
     }
+    from bottle import Bottle, static_file
+
+    app = Bottle()
+
+
+    # Route to serve static files
+    @app.route('/<filename:path>')
+    def serve_static(filename):
+        return static_file(filename, root='static/')
+
+
+    @app.route('/videos/<filename:path>')
+    def serve_videos(filename):
+        return static_file(filename, root='videos/')
+
+
+    # Start the Bottle server
+    def start_server():
+        app.run(host='127.0.0.1', port=10082)
+
+
+    # Start the server in a separate thread
+    import threading
+
+    server_thread = threading.Thread(target=start_server)
+    server_thread.start()
     window = webview.create_window(
         title='抖音精选-为你筛选最想看的内容',  # 标题
-        url='static/index.html',  # 本地文件或网络URL
+        url='http://127.0.0.1:10082/index.html',  # 本地文件或网络URL
         js_api=api,  # 暴露api对象，或使用flask等服务创建的对象
         width=400,  # 窗口宽；好像和网页中大小不一样，网页中大小为620*470px
-        height=729,  # 窗口高
+        height=720,  # 窗口高
         resizable=True,  # 是否可以缩放窗口
         frameless=False,  # 窗口是否无边框
         confirm_close=True,  # 退出确认
     )
-    webview.start(debug=False,localization=chinese)
+    webview.start(debug=False, localization=chinese)

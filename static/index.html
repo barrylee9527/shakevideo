@@ -18,13 +18,20 @@
     <script src="./js/video.js" type="text/javascript" charset="utf-8"></script>
 	<!-- 引入自定义CSS -->
 	<link rel="stylesheet" type="text/css" href="./css/my.css" />
+	<style>
+        /* 使视频元素占满整个屏幕 */
+        #video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 <!--<div class="note" :style ="note"></div>width="382px" height="682px"  -->
 	<div id="app">
         <video id="video" ref="my_video" class="video-js vjs-big-play-centered vjs-fluid" controls preload="auto"
          :poster="logo" data-setup="{}" autoplay>
-        <source src="../1.mp4" type="video/mp4"/>
+        <source src="1.mp4" type="video/mp4"/>
         </video>
 	</div>
 
