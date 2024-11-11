@@ -5,6 +5,8 @@ import webview
 from concurrent.futures import ThreadPoolExecutor
 # from win32com.shell import shell, shellcon
 # import win32con, win32event, win32process
+
+
 from download import Download
 import json
 from home_girl import girl_home
@@ -17,7 +19,7 @@ from urllib.parse import urlparse
 #                      r'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders')
 # video_path = str(winreg.QueryValueEx(key, "Local AppData")[0]).replace('\\', '/') + '/Temp/'
 
-play_url = []
+play_url = ["http://ali-cdn.kwai.net/upic/2016/09/13/23/BMjAxNjA5MTMyMzIxMDVfMTQ0MTUyNDU1XzEwNTk2MTQyNThfMV8z.mp4"]
 
 
 def random_user():
@@ -725,4 +727,4 @@ if __name__ == "__main__":
         frameless=False,  # 窗口是否无边框
         confirm_close=True,  # 退出确认
     )
-    webview.start(debug=True, localization=chinese)
+    webview.start(debug=False,localization=chinese)
